@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Expense Tracker</h1>
+      <p class="sub">A ledger served by a web server written in C</p>
+    </div>
+    <div class="period">
+      <label for="filter-month">Period</label>
+      <div class="period-row">
+        <input type="month" id="filter-month">
+        <button type="button" id="all-time" class="ghost">All time</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="stats" aria-label="Summary">
+      <div class="stat stat-main">
+        <span class="stat-label" id="total-label">Spent</span>
+        <span class="stat-value" id="stat-total">₹0.00</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Transactions</span>
+        <span class="stat-value" id="stat-count">0</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Average</span>
+        <span class="stat-value" id="stat-avg">₹0.00</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Top category</span>
+        <span class="stat-value text-value" id="stat-top">—</span>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card" aria-labelledby="add-title">
+        <h2 id="add-title">Add an expense</h2>
+        <form id="add-form" autocomplete="off">
+          <div class="row">
+            <label>Date
+              <input type="date" name="date" id="f-date" required>
+            </label>
+            <label>Amount (₹)
+              <input type="text" name="amount" id="f-amount" inputmode="decimal" placeholder="0.00" required>
+            </label>
+          </div>
+          <label>Category
+            <select name="category" id="f-category" required></select>
+          </label>
+          <label><span>Note <span class="optional">(optional)</span></span>
+            <input type="text" name="note" id="f-note" maxlength="120" placeholder="e.g. Lunch at canteen">
+          </label>
+          <button type="submit" id="add-btn">Add expense</button>
+          <p class="msg" id="form-msg" role="status"></p>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="cat-title">
+        <h2 id="cat-title">By category</h2>
+        <ul class="bars" id="cat-bars"></ul>
+      </section>
+
+      <section class="card" aria-labelledby="month-title">
+        <h2 id="month-title">Month by month</h2>
+        <ul class="bars" id="month-bars"></ul>
+      </section>
+    </div>
+
+    <section class="card ledger" aria-labelledby="list-title">
+      <div class="ledger-head">
+        <h2 id="list-title">Transactions</h2>
+        <select id="filter-category" aria-label="Filter by category">
+          <option value="">All categories</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Category</th><th>Note</th><th class="num">Amount</th><th></th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="empty">No expenses for this period yet.</p>
+    </section>
+  </main>
+
+  <footer>Data is saved in <code>expenses.csv</code> next to the server.</footer>
+  <script src="/app.js"></script>
+</body>
+</html>

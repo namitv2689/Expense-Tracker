@@ -1,0 +1,5 @@
+server
+server.exe
+*.o
+expenses.csv
+expenses.csv.tmp
